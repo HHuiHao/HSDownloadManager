@@ -23,6 +23,7 @@
  *
  *  @param url           下载地址
  *  @param progressBlock 回调下载进度
+ *  @param stateBlock    下载状态
  */
 - (void)download:(NSString *)url progress:(void(^)(CGFloat progress))progressBlock state:(void(^)(DownloadState state))stateBlock;
 
