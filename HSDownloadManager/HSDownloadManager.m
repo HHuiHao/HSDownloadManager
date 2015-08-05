@@ -6,6 +6,7 @@
 //  Copyright © 2015年 hans. All rights reserved.
 //
 
+// 缓存主目录
 #define HSCachesDirectory [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"HSCache"]
 
 // 保存文件名
@@ -83,9 +84,9 @@ static HSDownloadManager *_downloadManager;
 }
 
 /**
- *  初始化下载
+ *  下载资源
  */
-- (void)download:(NSString *)url progress:(void (^)(CGFloat))progressBlock state:(void (^)(DownloadState))stateBlock
+- (void)download:(NSString *)url progress:(void (^)(NSInteger, NSInteger, CGFloat))progressBlock state:(void (^)(DownloadState))stateBlock
 {
     if (!url) return;
     if ([self isCompletion:url]) {
@@ -130,6 +131,7 @@ static HSDownloadManager *_downloadManager;
     [self start:url];
 }
 
+
 - (void)handle:(NSString *)url
 {
     NSURLSessionDataTask *task = [self getTask:url];
@@ -148,7 +150,7 @@ static HSDownloadManager *_downloadManager;
     NSURLSessionDataTask *task = [self getTask:url];
     [task resume];
 
-    [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateStart);
+    ![self getSessionModel:task.taskIdentifier].stateBlock ? : [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateStart);
 }
 
 /**
@@ -159,7 +161,7 @@ static HSDownloadManager *_downloadManager;
     NSURLSessionDataTask *task = [self getTask:url];
     [task suspend];
 
-    [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateSuspended);
+    ![self getSessionModel:task.taskIdentifier].stateBlock ? : [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateSuspended);
 }
 
 /**
@@ -194,7 +196,7 @@ static HSDownloadManager *_downloadManager;
  */
 - (CGFloat)progress:(NSString *)url
 {
-   return 1.0 * HSDownloadLength(url) /  [self fileTotalLength:url];
+    return [self fileTotalLength:url] == 0 ? 0.0 : 1.0 * HSDownloadLength(url) /  [self fileTotalLength:url];
 }
 
 /**
@@ -205,7 +207,8 @@ static HSDownloadManager *_downloadManager;
     return [[NSDictionary dictionaryWithContentsOfFile:HSTotalLengthFullpath][HSFileName(url)] integerValue];
 }
 
-#pragma mark - NSURLSessionDataDelegate
+#pragma mark - 代理
+#pragma mark NSURLSessionDataDelegate
 /**
  * 接收到响应
  */
@@ -232,7 +235,7 @@ static HSDownloadManager *_downloadManager;
 }
 
 /**
- * 接收到服务器返回的数据（这个方法可能会被调用N次）
+ * 接收到服务器返回的数据
  */
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
@@ -242,9 +245,11 @@ static HSDownloadManager *_downloadManager;
     [sessionModel.stream write:data.bytes maxLength:data.length];
     
     // 下载进度
-    CGFloat progress = 1.0 * HSDownloadLength(sessionModel.url) / sessionModel.totalLength;
+    NSUInteger receivedSize = HSDownloadLength(sessionModel.url);
+    NSUInteger expectedSize = sessionModel.totalLength;
+    CGFloat progress = 1.0 * receivedSize / expectedSize;
 
-    sessionModel.progressBlock(progress);
+    !sessionModel.progressBlock ? : sessionModel.progressBlock(receivedSize, expectedSize, progress);
 }
 
 /**
@@ -256,10 +261,10 @@ static HSDownloadManager *_downloadManager;
     
     if ([self isCompletion:sessionModel.url]) {
         // 下载完成
-        sessionModel.stateBlock(DownloadStateCompleted);
+        !sessionModel.stateBlock ? : sessionModel.stateBlock(DownloadStateCompleted);
     } else if (error){
         // 下载失败
-        sessionModel.stateBlock(DownloadStateFailed);
+        !sessionModel.stateBlock ? : sessionModel.stateBlock(DownloadStateFailed);
     }
     
     // 关闭流

@@ -19,13 +19,13 @@
 + (instancetype)sharedInstance;
 
 /**
- *  初始化下载资源
+ *  下载资源
  *
  *  @param url           下载地址
  *  @param progressBlock 回调下载进度
  *  @param stateBlock    下载状态
  */
-- (void)download:(NSString *)url progress:(void(^)(CGFloat progress))progressBlock state:(void(^)(DownloadState state))stateBlock;
+- (void)download:(NSString *)url progress:(void(^)(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress))progressBlock state:(void(^)(DownloadState state))stateBlock;
 
 /**
  *  查询该资源的下载进度值
@@ -50,7 +50,7 @@
  *
  *  @param url 下载地址
  *
- *  @return 下载状态 YES: 下载完成
+ *  @return YES: 完成
  */
 - (BOOL)isCompletion:(NSString *)url;
 

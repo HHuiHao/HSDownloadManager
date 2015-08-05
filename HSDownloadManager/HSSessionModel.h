@@ -26,7 +26,7 @@ typedef enum {
 @property (nonatomic, assign) NSInteger totalLength;
 
 /** 下载进度 */
-@property (nonatomic, copy) void(^progressBlock)(CGFloat progress);
+@property (nonatomic, copy) void(^progressBlock)(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress);
 
 /** 下载状态 */
 @property (nonatomic, copy) void(^stateBlock)(DownloadState state);

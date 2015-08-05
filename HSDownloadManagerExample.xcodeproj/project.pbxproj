@@ -12,7 +12,6 @@
 		3AB9E6B41B70E02700FF1C9A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E6B31B70E02700FF1C9A /* ViewController.m */; };
 		3AB9E6B71B70E02700FF1C9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AB9E6B51B70E02700FF1C9A /* Main.storyboard */; };
 		3AB9E6B91B70E02700FF1C9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB9E6B81B70E02700FF1C9A /* Assets.xcassets */; };
-		3AB9E6BC1B70E02700FF1C9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AB9E6BA1B70E02700FF1C9A /* LaunchScreen.storyboard */; };
 		3AB9E6C61B70E11300FF1C9A /* HSDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E6C51B70E11300FF1C9A /* HSDownloadManager.m */; };
 		3AB9E6CA1B70E64400FF1C9A /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E6C91B70E64400FF1C9A /* NSString+Hash.m */; };
 		3AB9E6CD1B70E73C00FF1C9A /* HSSessionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E6CC1B70E73C00FF1C9A /* HSSessionModel.m */; };
@@ -27,7 +26,6 @@
 		3AB9E6B31B70E02700FF1C9A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3AB9E6B61B70E02700FF1C9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3AB9E6B81B70E02700FF1C9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3AB9E6BB1B70E02700FF1C9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AB9E6BD1B70E02700FF1C9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AB9E6C41B70E11300FF1C9A /* HSDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSDownloadManager.h; sourceTree = "<group>"; };
 		3AB9E6C51B70E11300FF1C9A /* HSDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDownloadManager.m; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 				3AB9E6B31B70E02700FF1C9A /* ViewController.m */,
 				3AB9E6B51B70E02700FF1C9A /* Main.storyboard */,
 				3AB9E6B81B70E02700FF1C9A /* Assets.xcassets */,
-				3AB9E6BA1B70E02700FF1C9A /* LaunchScreen.storyboard */,
 				3AB9E6BD1B70E02700FF1C9A /* Info.plist */,
 				3AB9E6AC1B70E02700FF1C9A /* Supporting Files */,
 			);
@@ -167,7 +164,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AB9E6BC1B70E02700FF1C9A /* LaunchScreen.storyboard in Resources */,
 				3AB9E6B91B70E02700FF1C9A /* Assets.xcassets in Resources */,
 				3AB9E6B71B70E02700FF1C9A /* Main.storyboard in Resources */,
 			);
@@ -198,14 +194,6 @@
 				3AB9E6B61B70E02700FF1C9A /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		3AB9E6BA1B70E02700FF1C9A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3AB9E6BB1B70E02700FF1C9A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -296,6 +284,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = HSDownloadManagerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hans.plub.HSDownloadManagerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -307,6 +296,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = HSDownloadManagerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hans.plub.HSDownloadManagerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "HSDownloadManager.h"
 
+
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel1;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel2;
@@ -22,16 +23,32 @@
 
 @implementation ViewController
 
+NSString * const downloadUrl1 = @"http://120.25.226.186:32812/resources/videos/minion_01.mp4";
+NSString * const downloadUrl2 = @"http://box.9ku.com/download.aspx?from=9ku";
+NSString * const downloadUrl3 = @"http://pic6.nipic.com/20100330/4592428_113348097000_2.jpg";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"%@", NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES));
+//    NSLog(@"%@", NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES));
+    
+    self.progressLabel1.text = [NSString stringWithFormat:@"%.f%%", [[HSDownloadManager sharedInstance] progress:downloadUrl1] * 100];
+    self.progressView1.progress = [[HSDownloadManager sharedInstance] progress:downloadUrl1];
+    
+    self.progressLabel2.text = [NSString stringWithFormat:@"%.f%%", [[HSDownloadManager sharedInstance] progress:downloadUrl2] * 100];
+    self.progressView2.progress = [[HSDownloadManager sharedInstance] progress:downloadUrl2];
+    
+    self.progressLabel3.text = [NSString stringWithFormat:@"%.f%%", [[HSDownloadManager sharedInstance] progress:downloadUrl3] * 100];
+    self.progressView3.progress = [[HSDownloadManager sharedInstance] progress:downloadUrl3];
     
 }
+
+#pragma mark 下载
 - (IBAction)download1:(UIButton *)sender {
-    
-    [[HSDownloadManager sharedInstance] download:@"http://120.25.226.186:32812/resources/videos/minion_01.mp4" progress:^(CGFloat progress) {
+
+    [[HSDownloadManager sharedInstance] download:downloadUrl1 progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
         dispatch_async(dispatch_get_main_queue(), ^{
+
             self.progressLabel1.text = [NSString stringWithFormat:@"%.f%%", progress * 100];
             self.progressView1.progress = progress;
         });
@@ -43,7 +60,7 @@
 }
 
 - (IBAction)download2:(UIButton *)sender {
-    [[HSDownloadManager sharedInstance] download:@"http://box.9ku.com/download.aspx?from=9ku" progress:^(CGFloat progress) {
+    [[HSDownloadManager sharedInstance] download:downloadUrl2 progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.progressLabel2.text = [NSString stringWithFormat:@"%.f%%", progress * 100];
             self.progressView2.progress = progress;
@@ -56,7 +73,7 @@
 }
 
 - (IBAction)download3:(UIButton *)sender {
-    [[HSDownloadManager sharedInstance] download:@"http://pic6.nipic.com/20100330/4592428_113348097000_2.jpg" progress:^(CGFloat progress) {
+    [[HSDownloadManager sharedInstance] download:downloadUrl3 progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.progressLabel3.text = [NSString stringWithFormat:@"%.f%%", progress * 100];
             self.progressView3.progress = progress;
@@ -68,6 +85,7 @@
     }];
 }
 
+#pragma mark 按钮状态
 - (NSString *)getTitleWithDownloadState:(DownloadState)state
 {
     switch (state) {
