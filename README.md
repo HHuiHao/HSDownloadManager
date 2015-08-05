@@ -38,3 +38,5 @@
  */
 - (BOOL)isCompletion:(NSString *)url;
 ```
+###演示
+![](show.gif)

@@ -39,8 +39,7 @@ NSString * const downloadUrl3 = @"http://pic6.nipic.com/20100330/4592428_1133480
     self.progressView2.progress = [[HSDownloadManager sharedInstance] progress:downloadUrl2];
     
     self.progressLabel3.text = [NSString stringWithFormat:@"%.f%%", [[HSDownloadManager sharedInstance] progress:downloadUrl3] * 100];
-    self.progressView3.progress = [[HSDownloadManager sharedInstance] progress:downloadUrl3];
-    
+    self.progressView3.progress = [[HSDownloadManager sharedInstance] progress:downloadUrl3]; 
 }
 
 #pragma mark 下载
