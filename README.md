@@ -1,9 +1,11 @@
 # HSDownloadManager
-下载音乐、视频、图片各种资源，支持多任务、断点下载！
+下载音乐、视频、图片各种资源，支持多任务、断点下载！(注:程序意外崩溃/杀死,也可恢复进度)
+
 
 ```objc
+
 /**
- *  初始化下载资源
+ *  开启任务下载资源
  *
  *  @param url           下载地址
  *  @param progressBlock 回调下载进度
@@ -37,6 +39,20 @@
  *  @return 下载状态 YES: 下载完成
  */
 - (BOOL)isCompletion:(NSString *)url;
+
+/**
+ *  删除该资源
+ *
+ *  @param url 下载地址
+ */
+- (void)deleteFile:(NSString *)url;
+
+/**
+ *  清空所有下载资源
+ */
+- (void)deleteAllFile;
+
+
 ```
 ###演示
 ![](show.gif)

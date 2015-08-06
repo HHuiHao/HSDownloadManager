@@ -8,7 +8,7 @@
 
 typedef enum {
     DownloadStateStart = 0,     /** 下载中 */
-    DownloadStateSuspended,     /** 暂停下载 */
+    DownloadStateSuspended,     /** 下载暂停 */
     DownloadStateCompleted,     /** 下载完成 */
     DownloadStateFailed         /** 下载失败 */
 }DownloadState;

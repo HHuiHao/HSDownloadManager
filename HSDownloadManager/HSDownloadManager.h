@@ -19,7 +19,7 @@
 + (instancetype)sharedInstance;
 
 /**
- *  下载资源
+ *  开启任务下载资源
  *
  *  @param url           下载地址
  *  @param progressBlock 回调下载进度
@@ -53,5 +53,17 @@
  *  @return YES: 完成
  */
 - (BOOL)isCompletion:(NSString *)url;
+
+/**
+ *  删除该资源
+ *
+ *  @param url 下载地址
+ */
+- (void)deleteFile:(NSString *)url;
+
+/**
+ *  清空所有下载资源
+ */
+- (void)deleteAllFile;
 
 @end
