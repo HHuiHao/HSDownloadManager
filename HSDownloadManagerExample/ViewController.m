@@ -56,6 +56,8 @@ NSString * const downloadUrl3 = @"http://pic6.nipic.com/20100330/4592428_1133480
     self.progressLabel3.text = [NSString stringWithFormat:@"%.f%%", [[HSDownloadManager sharedInstance] progress:downloadUrl3] * 100];
     self.progressView3.progress = [[HSDownloadManager sharedInstance] progress:downloadUrl3];
     [self.downloadButton3 setTitle:[self getTitleWithDownloadState:state] forState:UIControlStateNormal];
+    NSLog(@"-----%f", [[HSDownloadManager sharedInstance] progress:downloadUrl1]);
+    NSLog(@"-----%f", [[HSDownloadManager sharedInstance] progress:downloadUrl2]);
 }
 
 #pragma mark 下载按钮事件
@@ -85,7 +87,7 @@ NSString * const downloadUrl3 = @"http://pic6.nipic.com/20100330/4592428_1133480
 
 - (IBAction)deleteFile2:(UIButton *)sender {
     [[HSDownloadManager sharedInstance] deleteFile:downloadUrl2];
-    self.progressLabel2.text = [NSString stringWithFormat:@"%.f%%", [[HSDownloadManager sharedInstance] progress:downloadUrl3] * 100];
+    self.progressLabel2.text = [NSString stringWithFormat:@"%.f%%", [[HSDownloadManager sharedInstance] progress:downloadUrl2] * 100];
     self.progressView2.progress = [[HSDownloadManager sharedInstance] progress:downloadUrl2];
     [self.downloadButton2 setTitle:[self getTitleWithDownloadState:DownloadStateSuspended] forState:UIControlStateNormal];
 }
