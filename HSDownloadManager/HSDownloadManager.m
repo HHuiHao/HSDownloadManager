@@ -98,7 +98,7 @@ static HSDownloadManager *_downloadManager;
     if (!url) return;
     if ([self isCompletion:url]) {
         stateBlock(DownloadStateCompleted);
-        NSLog(@"----文件已经下载过了");
+        NSLog(@"----该资源已下载完成");
         return;
     }
     
@@ -161,7 +161,7 @@ static HSDownloadManager *_downloadManager;
     NSURLSessionDataTask *task = [self getTask:url];
     [task resume];
 
-    ![self getSessionModel:task.taskIdentifier].stateBlock ? : [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateStart);
+    [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateStart);
 }
 
 /**
@@ -172,7 +172,7 @@ static HSDownloadManager *_downloadManager;
     NSURLSessionDataTask *task = [self getTask:url];
     [task suspend];
 
-    ![self getSessionModel:task.taskIdentifier].stateBlock ? : [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateSuspended);
+    [self getSessionModel:task.taskIdentifier].stateBlock(DownloadStateSuspended);
 }
 
 /**
@@ -310,11 +310,11 @@ static HSDownloadManager *_downloadManager;
     NSUInteger expectedSize = sessionModel.totalLength;
     CGFloat progress = 1.0 * receivedSize / expectedSize;
 
-    !sessionModel.progressBlock ? : sessionModel.progressBlock(receivedSize, expectedSize, progress);
+    sessionModel.progressBlock(receivedSize, expectedSize, progress);
 }
 
 /**
- * 请求完毕（成功\失败）
+ * 请求完毕（成功|失败）
  */
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
@@ -323,10 +323,10 @@ static HSDownloadManager *_downloadManager;
     
     if ([self isCompletion:sessionModel.url]) {
         // 下载完成
-        !sessionModel.stateBlock ? : sessionModel.stateBlock(DownloadStateCompleted);
+        sessionModel.stateBlock(DownloadStateCompleted);
     } else if (error){
         // 下载失败
-        !sessionModel.stateBlock ? : sessionModel.stateBlock(DownloadStateFailed);
+        sessionModel.stateBlock(DownloadStateFailed);
     }
     
     // 关闭流
